@@ -1,25 +1,58 @@
-const botonConectar = document.getElementById('btn-conectar');
+// --- LÓGICA DEL TEMPORIZADOR Y LUZ AZUL ---
+let tiempoRestante = 60; // 60 segundos por defecto
+let intervalo = null;
 
-botonConectar.addEventListener('click', async () => {
-  try {
-    // 1. Pedir permiso al usuario para elegir el dispositivo Bluetooth
-    const dispositivo = await navigator.bluetooth.requestDevice({
-      // Reemplaza con el nombre exacto de tu Arduino o modulo Bluetooth si lo tiene
-      acceptAllDevices: true,
-      optionalServices: ['battery_service'] // Aquí irán los IDs de servicio de tu tarjeta
-    });
+function actualizarPantallaTiempo() {
+  let minutos = Math.floor(tiempoRestante / 60);
+  let segundos = tiempoRestante % 60;
+  
+  // Agrega un cero a la izquierda si es menor a 10
+  if (minutos < 10) minutos = '0' + minutos;
+  if (segundos < 10) segundos = '0' + segundos;
+  
+  document.getElementById('temporizador').innerText = minutos + ':' + segundos;
+}
 
-    // 2. Conectar al servidor del dispositivo (GATT)
-    const servidor = await dispositivo.gatt.connect();
-    alert('¡Conectado exitosamente a ' + dispositivo.name + '!');
+function iniciarTemporizador() {
+  if (intervalo) return; // Evita duplicar el conteo
+  
+  // Restablecer luz
+  document.getElementById('luz-azul').classList.remove('encendida');
+  
+  intervalo = setInterval(() => {
+    if (tiempoRestante > 0) {
+      tiempoRestante--;
+      actualizarPantallaTiempo();
+    } else {
+      // Cuando el tiempo termina, encender luz azul
+      clearInterval(intervalo);
+      intervalo = null;
+      document.getElementById('luz-azul').classList.add('encendida');
+    }
+  }, 1000);
+}
 
-    // 3. Escuchar si se desconecta
-    dispositivo.addEventListener('gattserverdisconnected', () => {
-      alert('El dispositivo Bluetooth se ha desconectado.');
-    });
+function detenerTemporizador() {
+  clearInterval(intervalo);
+  intervalo = null;
+}
 
-  } catch (error) {
-    console.error('Error al conectar:', error);
-    alert('No se pudo conectar. Asegúrate de encender el Bluetooth.');
-  }
+// --- SIMULACIÓN DE SENSORES PARA LA PRESENTACIÓN ---
+
+// Cambiar la barra de movimiento
+function cambiarMovimiento(porcentaje) {
+  const barra = document.getElementById('barra-progreso');
+  barra.style.width = porcentaje + '%';
+}
+
+// Cambiar el valor del pulso cardiaco
+function cambiarPulso(bpm) {
+  document.getElementById('pulso').innerText = bpm + ' BPM';
+}
+
+// Botón de conexión simulada
+document.getElementById('btn-conectar').addEventListener('click', () => {
+  const estado = document.getElementById('estado-conexion');
+  estado.innerText = 'Estado: ¡Conectado con éxito!';
+  estado.style.color = '#00c4cc';
 });
