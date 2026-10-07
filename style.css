@@ -1,52 +1,71 @@
+/* Configuramos la pantalla completa */
 body {
   background-color: #eef5f9; /* Gris muy claro */
   font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
+  margin: 0;
   padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
+/* El contenedor principal ocupa casi toda la pantalla */
 .card {
   background-color: #ffffff; /* Blanco */
-  border-radius: 15px;
-  padding: 20px;
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  border: 2px solid #5ce1e6; /* Turquesa */
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 900px; /* Tamaño más ancho para presentación */
+  margin: 0 auto;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  border: 3px solid #5ce1e6; /* Turquesa */
   text-align: center;
 }
 
 h1 {
   color: #004b87; /* Azul oscuro */
+  font-size: 2.5rem;
 }
 
 button {
   background-color: #0099ff; /* Celeste brillante */
   color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
+  padding: 15px 25px;
+  font-size: 1.2rem;
+  border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
 }
 
+/* Organizamos las secciones con letras grandes */
 .seccion {
   background-color: #f0f8ff; /* Azul muy suave */
-  margin-top: 15px;
-  padding: 10px;
-  border-radius: 10px;
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 12px;
 }
 
-/* Barra de movimiento */
+h2 {
+  color: #004b87;
+  font-size: 1.8rem;
+}
+
+#temporizador, #pulso {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #00c4cc;
+}
+
+/* Barra de movimiento más grande */
 .barra-fondo {
   background-color: #d3d3d3; /* Gris */
-  height: 20px;
-  border-radius: 10px;
+  height: 30px;
+  border-radius: 15px;
   overflow: hidden;
+  margin-top: 10px;
 }
 
 #barra-progreso {
   background-color: #00c4cc; /* Turquesa */
-  width: 40%; /* Este porcentaje cambiará con el movimiento */
+  width: 50%; /* Porcentaje de prueba */
   height: 100%;
 }
