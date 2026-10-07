@@ -1,71 +1,58 @@
-/* Configuramos la pantalla completa */
-body {
-  background-color: #eef5f9; /* Gris muy claro */
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-  min-height: 100vh;
-  box-sizing: border-box;
+// --- LÓGICA DEL TEMPORIZADOR Y LUZ AZUL ---
+let tiempoRestante = 60; // 60 segundos por defecto
+let intervalo = null;
+
+function actualizarPantallaTiempo() {
+  let minutos = Math.floor(tiempoRestante / 60);
+  let segundos = tiempoRestante % 60;
+  
+  // Agrega un cero a la izquierda si es menor a 10
+  if (minutos < 10) minutos = '0' + minutos;
+  if (segundos < 10) segundos = '0' + segundos;
+  
+  document.getElementById('temporizador').innerText = minutos + ':' + segundos;
 }
 
-/* El contenedor principal ocupa casi toda la pantalla */
-.card {
-  background-color: #ffffff; /* Blanco */
-  border-radius: 20px;
-  padding: 30px;
-  max-width: 900px; /* Tamaño más ancho para presentación */
-  margin: 0 auto;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  border: 3px solid #5ce1e6; /* Turquesa */
-  text-align: center;
+function iniciarTemporizador() {
+  if (intervalo) return; // Evita duplicar el conteo
+  
+  // Restablecer luz
+  document.getElementById('luz-azul').classList.remove('encendida');
+  
+  intervalo = setInterval(() => {
+    if (tiempoRestante > 0) {
+      tiempoRestante--;
+      actualizarPantallaTiempo();
+    } else {
+      // Cuando el tiempo termina, encender luz azul
+      clearInterval(intervalo);
+      intervalo = null;
+      document.getElementById('luz-azul').classList.add('encendida');
+    }
+  }, 1000);
 }
 
-h1 {
-  color: #004b87; /* Azul oscuro */
-  font-size: 2.5rem;
+function detenerTemporizador() {
+  clearInterval(intervalo);
+  intervalo = null;
 }
 
-button {
-  background-color: #0099ff; /* Celeste brillante */
-  color: white;
-  border: none;
-  padding: 15px 25px;
-  font-size: 1.2rem;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
+// --- SIMULACIÓN DE SENSORES PARA LA PRESENTACIÓN ---
+
+// Cambiar la barra de movimiento
+function cambiarMovimiento(porcentaje) {
+  const barra = document.getElementById('barra-progreso');
+  barra.style.width = porcentaje + '%';
 }
 
-/* Organizamos las secciones con letras grandes */
-.seccion {
-  background-color: #f0f8ff; /* Azul muy suave */
-  margin-top: 25px;
-  padding: 20px;
-  border-radius: 12px;
+// Cambiar el valor del pulso cardiaco
+function cambiarPulso(bpm) {
+  document.getElementById('pulso').innerText = bpm + ' BPM';
 }
 
-h2 {
-  color: #004b87;
-  font-size: 1.8rem;
-}
-
-#temporizador, #pulso {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #00c4cc;
-}
-
-/* Barra de movimiento más grande */
-.barra-fondo {
-  background-color: #d3d3d3; /* Gris */
-  height: 30px;
-  border-radius: 15px;
-  overflow: hidden;
-  margin-top: 10px;
-}
-
-#barra-progreso {
-  background-color: #00c4cc; /* Turquesa */
-  width: 50%; /* Porcentaje de prueba */
-  height: 100%;
-}
+// Botón de conexión simulada
+document.getElementById('btn-conectar').addEventListener('click', () => {
+  const estado = document.getElementById('estado-conexion');
+  estado.innerText = 'Estado: ¡Conectado con éxito!';
+  estado.style.color = '#00c4cc';
+});
