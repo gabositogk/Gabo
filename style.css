@@ -1,1 +1,35 @@
+/* Botones pequeños para controlar la simulación */
+.controles {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 
+.controles button {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  background-color: #5ce1e6;
+  color: #004b87;
+}
+
+/* Estilo para la Luz Azul */
+.luz {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  display: none; /* Oculta por defecto */
+}
+
+.luz.encendida {
+  display: block;
+  background-color: #0099ff;
+  color: white;
+  box-shadow: 0 0 15px #0099ff;
+}
+
+#estado-conexion {
+  font-weight: bold;
+  color: #888;
+}
