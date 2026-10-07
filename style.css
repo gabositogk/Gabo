@@ -1,0 +1,52 @@
+body {
+  background-color: #eef5f9; /* Gris muy claro */
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  background-color: #ffffff; /* Blanco */
+  border-radius: 15px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border: 2px solid #5ce1e6; /* Turquesa */
+  text-align: center;
+}
+
+h1 {
+  color: #004b87; /* Azul oscuro */
+}
+
+button {
+  background-color: #0099ff; /* Celeste brillante */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.seccion {
+  background-color: #f0f8ff; /* Azul muy suave */
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* Barra de movimiento */
+.barra-fondo {
+  background-color: #d3d3d3; /* Gris */
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#barra-progreso {
+  background-color: #00c4cc; /* Turquesa */
+  width: 40%; /* Este porcentaje cambiará con el movimiento */
+  height: 100%;
+}
