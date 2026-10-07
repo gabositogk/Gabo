@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Pulsera Inteligente</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>Pulsera Inteligente</h1>
+    
+    <!-- Botón para conectar por Bluetooth -->
+    <button id="btn-conectar">Conectar Bluetooth</button>
+    
+    <!-- Seccion del Temporizador -->
+    <div class="seccion">
+      <h2>Temporizador</h2>
+      <div id="temporizador">00:00</div>
+    </div>
+
+    <!-- Seccion del Sensor de Movimiento -->
+    <div class="seccion">
+      <h2>Intensidad de Movimiento</h2>
+      <div class="barra-fondo">
+        <div id="barra-progreso"></div>
+      </div>
+    </div>
+
+    <!-- Seccion del Pulso Cardiaco -->
+    <div class="seccion">
+      <h2>Pulso Cardíaco</h2>
+      <p id="pulso">-- BPM</p>
+    </div>
+  </div>
+</body>
+</html>
