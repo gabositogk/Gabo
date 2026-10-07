@@ -2,35 +2,54 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Mi Pulsera Inteligente</title>
+  <title>Presentación - Pulsera Inteligente</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="card">
     <h1>Pulsera Inteligente</h1>
     
-    <!-- Botón para conectar por Bluetooth -->
-    <button id="btn-conectar">Conectar Bluetooth</button>
+    <!-- Botón de Bluetooth con estado visual -->
+    <button id="btn-conectar">Conectar Bluetooth (Simulado)</button>
+    <p id="estado-conexion">Estado: Desconectado</p>
     
-    <!-- Seccion del Temporizador -->
+    <!-- Sección del Temporizador -->
     <div class="seccion">
       <h2>Temporizador</h2>
-      <div id="temporizador">00:00</div>
+      <div id="temporizador">01:00</div>
+      <div class="controles">
+        <button onclick="iniciarTemporizador()">Iniciar</button>
+        <button onclick="detenerTemporizador()">Detener</button>
+      </div>
+      <!-- Luz Azul de alerta -->
+      <div id="luz-azul" class="luz apagada">LUZ AZUL ACTIVADA</div>
     </div>
 
-    <!-- Seccion del Sensor de Movimiento -->
+    <!-- Sección del Sensor de Movimiento -->
     <div class="seccion">
       <h2>Intensidad de Movimiento</h2>
       <div class="barra-fondo">
         <div id="barra-progreso"></div>
       </div>
+      <div class="controles">
+        <button onclick="cambiarMovimiento(20)">Bajo</button>
+        <button onclick="cambiarMovimiento(60)">Medio</button>
+        <button onclick="cambiarMovimiento(100)">Alto</button>
+      </div>
     </div>
 
-    <!-- Seccion del Pulso Cardiaco -->
+    <!-- Sección del Pulso Cardíaco -->
     <div class="seccion">
       <h2>Pulso Cardíaco</h2>
-      <p id="pulso">-- BPM</p>
+      <p id="pulso">75 BPM</p>
+      <div class="controles">
+        <button onclick="cambiarPulso(70)">Reposo (70 BPM)</button>
+        <button onclick="cambiarPulso(120)">Ejercicio (120 BPM)</button>
+      </div>
     </div>
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
+
