@@ -1,58 +1,25 @@
-// --- LÓGICA DEL TEMPORIZADOR Y LUZ AZUL ---
-let tiempoRestante = 60; // 60 segundos por defecto
-let intervalo = null;
+// Seleccionamos el botón
+const botonConectar = document.getElementById('btn-conectar');
 
-function actualizarPantallaTiempo() {
-  let minutos = Math.floor(tiempoRestante / 60);
-  let segundos = tiempoRestante % 60;
-  
-  // Agrega un cero a la izquierda si es menor a 10
-  if (minutos < 10) minutos = '0' + minutos;
-  if (segundos < 10) segundos = '0' + segundos;
-  
-  document.getElementById('temporizador').innerText = minutos + ':' + segundos;
-}
+botonConectar.addEventListener('click', async () => {
+  // Verificamos si el navegador soporta Bluetooth
+  if (!navigator.bluetooth) {
+    alert('Tu navegador no soporta Bluetooth. Intenta usar Google Chrome o Microsoft Edge.');
+    return;
+  }
 
-function iniciarTemporizador() {
-  if (intervalo) return; // Evita duplicar el conteo
-  
-  // Restablecer luz
-  document.getElementById('luz-azul').classList.remove('encendida');
-  
-  intervalo = setInterval(() => {
-    if (tiempoRestante > 0) {
-      tiempoRestante--;
-      actualizarPantallaTiempo();
-    } else {
-      // Cuando el tiempo termina, encender luz azul
-      clearInterval(intervalo);
-      intervalo = null;
-      document.getElementById('luz-azul').classList.add('encendida');
-    }
-  }, 1000);
-}
+  try {
+    // Esto abre la ventana emergente para buscar dispositivos
+    const dispositivo = await navigator.bluetooth.requestDevice({
+      acceptAllDevices: true
+    });
 
-function detenerTemporizador() {
-  clearInterval(intervalo);
-  intervalo = null;
-}
+    document.getElementById('estado-conexion').innerText = 'Conectado a: ' + dispositivo.name;
+    document.getElementById('estado-conexion').style.color = '#00c4cc';
 
-// --- SIMULACIÓN DE SENSORES PARA LA PRESENTACIÓN ---
-
-// Cambiar la barra de movimiento
-function cambiarMovimiento(porcentaje) {
-  const barra = document.getElementById('barra-progreso');
-  barra.style.width = porcentaje + '%';
-}
-
-// Cambiar el valor del pulso cardiaco
-function cambiarPulso(bpm) {
-  document.getElementById('pulso').innerText = bpm + ' BPM';
-}
-
-// Botón de conexión simulada
-document.getElementById('btn-conectar').addEventListener('click', () => {
-  const estado = document.getElementById('estado-conexion');
-  estado.innerText = 'Estado: ¡Conectado con éxito!';
-  estado.style.color = '#00c4cc';
+  } catch (error) {
+    // Si cierras la ventana o no eliges nada, entra aquí
+    console.log('No se seleccionó ningún dispositivo:', error);
+    alert('No se seleccionó ningún dispositivo Bluetooth.');
+  }
 });
